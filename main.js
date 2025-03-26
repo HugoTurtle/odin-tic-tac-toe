@@ -10,6 +10,25 @@ const Gameboard = (function() {
             board[i].push(Cell());
         }
     }
+
+    const getBoard = () => board;
+
+    const placeToken = (row, col, player) => {
+        // Check if the specified cell is empty (value 0)
+        if (board[row][col].getValue() !== 0) {
+            console.log("Invalid move: Cell is already occupied.");
+            return;
+        }
+
+        board[row][col].addToken(player);
+    };
+
+    const printBoard = () => {
+        const boardWithValues = board.map(row => row.map(cell => cell.getValue()));
+        console.log(boardWithValues);
+    };
+
+    return {getBoard, placeToken, printBoard};
 })();
 
 function Cell() {
