@@ -47,7 +47,7 @@ const GameController = (function(
     playerOneName = "Player One",
     playerTwoName = "Player Two"
 ) {
-    let board = Gameboard();
+    let board = Gameboard;
 
     const players = [
         {name: playerOneName, token: 1},
