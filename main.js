@@ -42,3 +42,23 @@ function Cell() {
 
     return {addToken, getValue};
 }
+
+const GameController = (function(
+    playerOneName = "Player One",
+    playerTwoName = "Player Two"
+) {
+    let board = Gameboard();
+
+    const players = [
+        {name: playerOneName, token: 1},
+        {name: playerTwoName, token: 2}
+    ]
+    
+    let activePlayers = players[0];
+
+    const switchPlayerTurn = () => {
+        activePlayers = activePlayers === players[0] ? players[1] : players[0];
+    }
+
+    const getActivePlayer = () => activePlayers;
+});
