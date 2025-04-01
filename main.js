@@ -61,4 +61,24 @@ const GameController = (function(
     }
 
     const getActivePlayer = () => activePlayers;
+
+    const printNewRound = () => {
+        board.printBoard();
+        console.log(`${getActivePlayer().name}'s turn.`);
+    }
+
+    const playRound = (row, col) => {
+        console.log(
+            `Placing ${getActivePlayer().name}'s turn onto board`
+        )
+        board.placeToken(row, col, getActivePlayer().token);
+
+
+        switchPlayerTurn();
+        printNewRound();
+    };
+
+    printNewRound();
+
+    return{playRound, getActivePlayer}
 });
