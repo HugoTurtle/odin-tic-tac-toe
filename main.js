@@ -73,7 +73,33 @@ const GameController = (function(
         )
         board.placeToken(row, col, getActivePlayer().token);
 
+        //Win condition
+        let playerOnePoints = 0 
+        let playerTwoPoints = 0;
 
+        function updatePoints(value) {
+            if (value === 1) {
+                playerOnePoints++;
+                playerTwoPoints = 0;
+                if (playerOnePoints === 3) {
+                    console.log("Player One Wins!");
+                    printNewRound();
+                    return true;
+                }
+            } else if (value === 2) {
+                playerTwoPoints++;
+                playerOnePoints = 0;
+                if (playerTwoPoints === 3) {
+                    console.log("Player Two Wins!");
+                    printNewRound();
+                    return true;
+                }
+            } else {
+                playerOnePoints = 0;
+                playerTwoPoints = 0;
+            }
+            return false;
+        }
         switchPlayerTurn();
         printNewRound();
     };
