@@ -100,6 +100,41 @@ const GameController = (function(
             }
             return false;
         }
+        const gameBoard = board.getBoard();
+
+        //Row Traversal
+        for(let i = 0; i < gameBoard.length; i++) {
+            for(let j = 0; j < gameBoard[i].length; j++) {
+                if(updatePoints(gameBoard[i][j].getValue())) {
+                    return; //Exit early if a player wins;
+                }
+            }
+        }
+        //Column Traversal
+        for(let j = 0; j < gameBoard[0].length; j++) {
+            for(let i = 0; i < gameBoard.length; i++) {
+                if(updatePoints(gameBoard[i][j].getValue())) {
+                    return; //Exit early if a player wins;
+                }
+            }
+        }
+
+        //Top-Left to Bottom-Right
+        for(let i = 0; i < gameBoard.length; i++) {
+            if(updatePoints(gameBoard[i][i].getValue())) {
+                return; //Exit early if a player wins;
+            }
+        }
+
+        //Top-Right to Bottom-Left
+        let n = gameBoard.length;
+        for(let i = 0; i < n; i++) {
+            if(updatePoints(gameBoard[i][n - 1 - i].getValue())) {
+                return; //Exit early if a player wins;
+            }
+        }
+        
+
         switchPlayerTurn();
         printNewRound();
     };
