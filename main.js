@@ -84,7 +84,7 @@ const GameController = (function(
         board.placeToken(row, col, getActivePlayer().token);
 
         const gameBoard = board.getBoard();
-        const currentPlayer = getActivePlayer.token;
+        const currentPlayer = getActivePlayer().token;
 
         function isWinningLine(a, b, c) {
             return a === currentPlayer && b === currentPlayer && c === currentPlayer;
@@ -115,9 +115,9 @@ const GameController = (function(
             printNewRound();
             return;
         }
-
-        moveCounter++;
         
+        moveCounter++;
+
         if(checkForTie()) {
             return;
         } 
