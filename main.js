@@ -171,6 +171,20 @@ function ScreenController() {
         const activePlayers = game.getActivePlayer();
 
         playerTurnDiv.textContent = `${activePlayers.name}'s turn...`
+
+        board.forEach((row, rowIndex) => {
+            row.forEach((cell, colIndex) => {
+                const cellButton = document.createElement('button');
+                cellButton.classList.add('cell');
+
+                cellButton.dataset.row = rowIndex;
+                cellButton.dataset.col = colIndex;
+
+                cellButton.textContent = cell.getValue();
+
+                boardDiv.appendChild(cellButton);
+            })
+        })
     }
 
     updateScreen();
