@@ -14,3 +14,12 @@
     padding: 2px;
     background-color: whitesmoke;
 }
+.cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 2rem;
+    border: 1px solid grey;
+    cursor: pointer;
+  }
