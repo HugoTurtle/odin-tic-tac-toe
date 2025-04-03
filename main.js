@@ -136,6 +136,8 @@ function ScreenController() {
     const playerTurnDiv = document.querySelector('.turn');
     const boardDiv = document.querySelector('.board');
 
+    const symbols = { 1: 'X', 2: 'O', 0: '' }
+
     const updateScreen = () => {
         boardDiv.textContent = "";
 
@@ -152,7 +154,7 @@ function ScreenController() {
                 cellButton.dataset.row = rowIndex;
                 cellButton.dataset.col = colIndex;
 
-                cellButton.textContent = cell.getValue();
+                cellButton.textContent = symbols[cell.getValue()];
 
                 cellButton.addEventListener('click', handleCellClick)
 
