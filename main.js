@@ -83,8 +83,6 @@ const GameController = (function(
         )
         board.placeToken(row, col, getActivePlayer().token);
 
-        moveCounter++;
-
         const gameBoard = board.getBoard();
         const currentPlayer = getActivePlayer.token;
 
@@ -117,6 +115,8 @@ const GameController = (function(
             printNewRound();
             return;
         }
+
+        moveCounter++;
         
         if(checkForTie()) {
             return;
