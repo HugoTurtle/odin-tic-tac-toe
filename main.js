@@ -86,7 +86,7 @@ const GameController = (function(
         moveCounter++;
 
         const gameBoard = board.getBoard();
-        const currentPlayer = getActivePlayer.token();
+        const currentPlayer = getActivePlayer.token;
 
         function isWinningLine(a, b, c) {
             return a === currentPlayer && b === currentPlayer && c === currentPlayer;
