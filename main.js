@@ -157,4 +157,4 @@ const GameController = (function(
     printNewRound();
 
     return{playRound, getActivePlayer}
-});
+})();
