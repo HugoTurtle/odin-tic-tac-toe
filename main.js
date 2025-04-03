@@ -55,6 +55,7 @@ const GameController = (function(
     ]
     
     let activePlayers = players[0];
+    let moveCounter = 0;
 
     const switchPlayerTurn = () => {
         activePlayers = activePlayers === players[0] ? players[1] : players[0];
@@ -67,12 +68,23 @@ const GameController = (function(
         console.log(`${getActivePlayer().name}'s turn.`);
     }
 
+    const checkForTie = () => {
+        const totalCells = board.getBoard().length * board.getBoard()[0].length;
+        if(moveCounter === totalCells) {
+            console.log("It's a tie!")
+            return true;
+        }
+        return false;
+    }
+
     const playRound = (row, col) => {
         console.log(
             `Placing ${getActivePlayer().name}'s turn onto board`
         )
         board.placeToken(row, col, getActivePlayer().token);
 
+        moveCounter++;
+        
         //Win condition
         let playerOnePoints = 0 
         let playerTwoPoints = 0;
@@ -134,6 +146,9 @@ const GameController = (function(
             }
         }
         
+        if(checkForTie()) {
+            return;
+        } 
 
         switchPlayerTurn();
         printNewRound();
