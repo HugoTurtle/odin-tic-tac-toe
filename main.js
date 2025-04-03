@@ -156,13 +156,23 @@ const GameController = (function(
 
     printNewRound();
 
-    return{playRound, getActivePlayer}
+    return{playRound, getActivePlayer, getBoard: board.getBoard}
 })();
 
 function ScreenController() {
-    const game = GameController();
+    const game = GameController;
     const playerTurnDiv = document.querySelector('.turn');
     const boardDiv = document.querySelector('.board');
 
-    
+    const updateScreen = () => {
+        boardDiv.textContent = "";
+
+        const board = game.getBoard();
+        const activePlayers = game.getActivePlayer();
+
+        playerTurnDiv.textContent = `${activePlayers.name}'s turn...`
+    }
+
+    updateScreen();
 }
+ScreenController();
