@@ -84,66 +84,38 @@ const GameController = (function(
         board.placeToken(row, col, getActivePlayer().token);
 
         moveCounter++;
-        
-        //Win condition
-        let playerOnePoints = 0 
-        let playerTwoPoints = 0;
 
-        function updatePoints(value) {
-            if (value === 1) {
-                playerOnePoints++;
-                playerTwoPoints = 0;
-                if (playerOnePoints === 3) {
-                    console.log("Player One Wins!");
-                    printNewRound();
-                    return true;
-                }
-            } else if (value === 2) {
-                playerTwoPoints++;
-                playerOnePoints = 0;
-                if (playerTwoPoints === 3) {
-                    console.log("Player Two Wins!");
-                    printNewRound();
-                    return true;
-                }
-            } else {
-                playerOnePoints = 0;
-                playerTwoPoints = 0;
-            }
-            return false;
-        }
         const gameBoard = board.getBoard();
+        const currentPlayer = getActivePlayer.token();
 
-        //Row Traversal
-        for(let i = 0; i < gameBoard.length; i++) {
-            for(let j = 0; j < gameBoard[i].length; j++) {
-                if(updatePoints(gameBoard[i][j].getValue())) {
-                    return; //Exit early if a player wins;
-                }
-            }
+        function isWinningLine(a, b, c) {
+            return a === currentPlayer && b === currentPlayer && c === currentPlayer;
         }
-        //Column Traversal
-        for(let j = 0; j < gameBoard[0].length; j++) {
-            for(let i = 0; i < gameBoard.length; i++) {
-                if(updatePoints(gameBoard[i][j].getValue())) {
-                    return; //Exit early if a player wins;
-                }
+
+        // Check Rows
+        for (let i = 0; i < 3; i++) {
+            if (isWinningLine(gameBoard[i][0].getValue(), gameBoard[i][1].getValue(), gameBoard[i][2].getValue())) {
+                console.log(`${getActivePlayer().name} Wins!`);
+                printNewRound();
+                return;
             }
         }
 
-        //Top-Left to Bottom-Right
-        for(let i = 0; i < gameBoard.length; i++) {
-            if(updatePoints(gameBoard[i][i].getValue())) {
-                return; //Exit early if a player wins;
+        // Check Columns
+        for (let j = 0; j < 3; j++) {
+            if (isWinningLine(gameBoard[0][j].getValue(), gameBoard[1][j].getValue(), gameBoard[2][j].getValue())) {
+                console.log(`${getActivePlayer().name} Wins!`);
+                printNewRound();
+                return;
             }
         }
 
-        //Top-Right to Bottom-Left
-        let n = gameBoard.length;
-        for(let i = 0; i < n; i++) {
-            if(updatePoints(gameBoard[i][n - 1 - i].getValue())) {
-                return; //Exit early if a player wins;
-            }
+        // Check Diagonals
+        if (isWinningLine(gameBoard[0][0].getValue(), gameBoard[1][1].getValue(), gameBoard[2][2].getValue()) ||
+            isWinningLine(gameBoard[0][2].getValue(), gameBoard[1][1].getValue(), gameBoard[2][0].getValue())) {
+            console.log(`${getActivePlayer().name} Wins!`);
+            printNewRound();
+            return;
         }
         
         if(checkForTie()) {
