@@ -182,9 +182,20 @@ function ScreenController() {
 
                 cellButton.textContent = cell.getValue();
 
+                cellButton.addEventListener('click', handleCellClick)
+
                 boardDiv.appendChild(cellButton);
             })
         })
+    }
+
+    function handleCellClick(e) {
+        const row = e.target.dataset.row;
+        const col = e.target.dataset.col;
+
+        game.playRound(row, col);
+
+        updateScreen();
     }
 
     updateScreen();
