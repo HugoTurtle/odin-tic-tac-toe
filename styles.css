@@ -3,6 +3,12 @@
     margin: 0;
     box-sizing: border-box;
 }
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 40px;
+}
 .board {
     display: grid;
     height: 500px;
