@@ -17,7 +17,7 @@ const Gameboard = (function() {
         // Check if the specified cell is empty (value 0)
         if (board[row][col].getValue() !== 0) {
             console.log("Invalid move: Cell is already occupied.");
-            return;
+            return false;
         }
 
         board[row][col].addToken(player);
@@ -81,7 +81,9 @@ const GameController = (function(
         console.log(
             `Placing ${getActivePlayer().name}'s turn onto board`
         )
-        board.placeToken(row, col, getActivePlayer().token);
+        if(board.placeToken(row, col, getActivePlayer().token) === false) {
+            switchPlayerTurn();
+        }
 
         const gameBoard = board.getBoard();
         const currentPlayer = getActivePlayer().token;
