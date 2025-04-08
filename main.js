@@ -43,7 +43,7 @@ function Cell() {
     return {addToken, getValue};
 }
 
-const GameController = (function(
+function GameController (
     playerOneName = "Player One",
     playerTwoName = "Player Two"
 ) {
@@ -131,10 +131,10 @@ const GameController = (function(
     printNewRound();
 
     return{playRound, getActivePlayer, getBoard: board.getBoard}
-})();
+};
 
-function ScreenController() {
-    const game = GameController;
+function ScreenController(game) {
+    const gameInstance = game;
     const playerTurnDiv = document.querySelector('.turn');
     const boardDiv = document.querySelector('.board');
 
@@ -176,4 +176,23 @@ function ScreenController() {
 
     updateScreen();
 }
-ScreenController();
+
+const GameMenu = (function () {
+    const startMenu = document.getElementById('start-menu');
+    const startButton = document.getElementById('start-button');
+
+    const gameScreen = document.getElementById('game-screen');
+
+    startButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        startMenu.style.display = 'none';
+        gameScreen.style.display = 'block';
+
+        const form = document.querySelector('form'); 
+        const playerOne = form.elements['player-one-name'].value;
+        const playerTwo = form.elements['player-two-name'].value;
+
+
+        ScreenController(GameController(playerOne, playerTwo));
+    })
+})();
