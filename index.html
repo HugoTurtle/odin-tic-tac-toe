@@ -8,7 +8,25 @@
     <title>Tic Tac Toe</title>
 </head>
 <body>
-    <div class="container">
+    <div id="start-menu">
+        <h1>Tic Tac Toe</h1>
+        <form>
+            <p>
+                <label>
+                    Player One Name:
+                    <input type="text" name="player-one-name">
+                </label>
+            </p>
+            <p>
+                <label>
+                    Player Two Name:
+                    <input type="text" name="player-two-name">
+                </label>
+            </p>
+            <button id="start-button">Start Game</button>
+        </form>
+    </div>
+    <div class="container" id="game-screen">
         <h1 class="turn"></h1>
         <div class="board"></div>
     </div>

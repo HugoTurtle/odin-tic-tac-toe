@@ -3,6 +3,20 @@
     margin: 0;
     box-sizing: border-box;
 }
+#start-menu {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+#game-screen {
+    display: none;
+}
+
 .container {
     display: flex;
     flex-direction: column;
