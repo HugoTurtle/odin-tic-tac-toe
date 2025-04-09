@@ -1,4 +1,4 @@
-const Gameboard = (function() {
+const Gameboard = function() {
     const rows = 3;
     const columns = 3;
     const board = [];
@@ -29,7 +29,7 @@ const Gameboard = (function() {
     };
 
     return {getBoard, placeToken, printBoard};
-})();
+};
 
 function Cell() {
     let value = 0;
@@ -47,7 +47,7 @@ function GameController (
     playerOneName = "Player One",
     playerTwoName = "Player Two"
 ) {
-    let board = Gameboard;
+    let board = Gameboard();
 
     const players = [
         {name: playerOneName, token: 1},
@@ -77,6 +77,28 @@ function GameController (
         return false;
     }
 
+    const resetGame = () => {
+        board = Gameboard();
+        moveCounter = 0;
+        activePlayers = players[0];
+    }
+
+    const showEndScreen = (message)  => {
+        const endScreen = document.getElementById('end-screen');
+        const resultText = document.getElementById('result-message');
+        endScreen.style.display = "flex";
+        resultText.textContent = message;
+    
+        document.getElementById('game-screen').style.display = 'none';
+
+        document.getElementById('restart-button').addEventListener('click', () => {
+            endScreen.style.display = "none";
+            document.getElementById('game-screen').style.display = 'block';
+            resetGame();
+            ScreenController(GameController(playerOneName, playerTwoName));
+        })
+    }
+
     const playRound = (row, col) => {
         console.log(
             `Placing ${getActivePlayer().name}'s turn onto board`
@@ -95,8 +117,7 @@ function GameController (
         // Check Rows
         for (let i = 0; i < 3; i++) {
             if (isWinningLine(gameBoard[i][0].getValue(), gameBoard[i][1].getValue(), gameBoard[i][2].getValue())) {
-                console.log(`${getActivePlayer().name} Wins!`);
-                printNewRound();
+                showEndScreen(`${getActivePlayer().name} Wins!`);
                 return;
             }
         }
@@ -104,8 +125,7 @@ function GameController (
         // Check Columns
         for (let j = 0; j < 3; j++) {
             if (isWinningLine(gameBoard[0][j].getValue(), gameBoard[1][j].getValue(), gameBoard[2][j].getValue())) {
-                console.log(`${getActivePlayer().name} Wins!`);
-                printNewRound();
+                showEndScreen(`${getActivePlayer().name} Wins!`);
                 return;
             }
         }
@@ -113,14 +133,14 @@ function GameController (
         // Check Diagonals
         if (isWinningLine(gameBoard[0][0].getValue(), gameBoard[1][1].getValue(), gameBoard[2][2].getValue()) ||
             isWinningLine(gameBoard[0][2].getValue(), gameBoard[1][1].getValue(), gameBoard[2][0].getValue())) {
-            console.log(`${getActivePlayer().name} Wins!`);
-            printNewRound();
+            showEndScreen(`${getActivePlayer().name} Wins!`);
             return;
         }
         
         moveCounter++;
 
         if(checkForTie()) {
+            showEndScreen("It's a tie!");
             return;
         } 
 
@@ -143,8 +163,8 @@ function ScreenController(game) {
     const updateScreen = () => {
         boardDiv.textContent = "";
 
-        const board = game.getBoard();
-        const activePlayers = game.getActivePlayer();
+        const board = gameInstance.getBoard();
+        const activePlayers = gameInstance.getActivePlayer();
 
         playerTurnDiv.textContent = `${activePlayers.name}'s turn...`
 
@@ -177,7 +197,7 @@ function ScreenController(game) {
     updateScreen();
 }
 
-const GameMenu = (function () {
+function GameMenu () {
     const startMenu = document.getElementById('start-menu');
     const startButton = document.getElementById('start-button');
 
@@ -195,4 +215,5 @@ const GameMenu = (function () {
 
         ScreenController(GameController(playerOne, playerTwo));
     })
-})();
+};
+GameMenu();
